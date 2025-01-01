@@ -24,10 +24,15 @@ import { boatClasses } from "@/boat-classes";
 function BoatClassSelector({ value, onChange, ...props }) {
   const [selected, setSelected] = useState(value);
 
+  // Put selected class at the top of the list
+  const order = selected ? [boatClasses.find(k => k.title === selected), ...boatClasses.filter(k => k.title !== selected)] : boatClasses;
+
   return (
     <Autocomplete
-      items={boatClasses}
+      items={order}
+      isClearable={false}
       selectedKey={selected}
+      isRequired
       onSelectionChange={(key) => {
         setSelected(key);
         onChange({ target: { value: key } });

@@ -57,7 +57,7 @@ export function useRaceTimer() {
 export function RaceTimer() {
   const secsFromStart = useRaceTimer();
 
-  if (secsFromStart >= 0) return <>Elapsed: {formattedTime(secsFromStart)}</>;
+  if (secsFromStart >= 0) return <>Race Time: {formattedTime(secsFromStart)}</>;
   else if (secsFromStart < 0)
     return <>To start of race: {formattedTime(-secsFromStart)}</>;
 }
