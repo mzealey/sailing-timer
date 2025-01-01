@@ -4,19 +4,26 @@ import {
   NavbarContent,
   NavbarItem,
 } from "@nextui-org/navbar";
+import { useLocation } from "react-router";
+
 import { RaceTimer } from "@/components/race-timer";
 
 export const Navbar = () => {
-    // TODO: Highlight when on a page
+  const location = useLocation();
+
   return (
     <NextUINavbar position="sticky">
       <NavbarContent justify="start">
-        <NavbarItem>
+        <NavbarItem
+          isActive={
+            location.pathname === "/competitors" || location.pathname === "/"
+          }
+        >
           <Link href="/competitors" size="lg">
             Competitors
           </Link>
         </NavbarItem>
-        <NavbarItem>
+        <NavbarItem isActive={location.pathname === "/race"}>
           <Link href="/race" size="lg">
             Race
           </Link>
@@ -25,7 +32,7 @@ export const Navbar = () => {
 
       <NavbarContent justify="end">
         <NavbarItem>
-            <RaceTimer />
+          <RaceTimer />
         </NavbarItem>
       </NavbarContent>
     </NextUINavbar>

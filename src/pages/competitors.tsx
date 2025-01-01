@@ -10,6 +10,7 @@ import {
   TableCell,
 } from "@nextui-org/table";
 import { Input } from "@nextui-org/input";
+import { Link } from "@nextui-org/link";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/autocomplete";
 
 import {
@@ -20,7 +21,7 @@ import {
 import DefaultLayout from "@/layouts/default";
 import { boatClasses } from "@/boat-classes";
 
-function BoatClassSelector({ value, onChange }) {
+function BoatClassSelector({ value, onChange, ...props }) {
   const [selected, setSelected] = useState(value);
 
   return (
@@ -31,6 +32,7 @@ function BoatClassSelector({ value, onChange }) {
         setSelected(key);
         onChange({ target: { value: key } });
       }}
+      {...props}
     >
       {(boatClass) => (
         <AutocompleteItem key={boatClass.title}>
@@ -52,60 +54,77 @@ function CompetitorInputTable() {
   };
 
   return (
-    <Table
-      bottomContent={
-        <Button color="primary" onPress={() => dispatch(addCompetitor({}))}>
+    <>
+      <Table>
+        <TableHeader>
+          <TableColumn>Helm</TableColumn>
+          <TableColumn>Boat Class</TableColumn>
+          <TableColumn>Sail Number</TableColumn>
+          <TableColumn>Crew</TableColumn>
+          <TableColumn>Actions</TableColumn>
+        </TableHeader>
+        <TableBody items={competitors}>
+          {(competitor) => (
+            <TableRow key={competitor.id}>
+              <TableCell>
+                <Input
+                  className="min-w-32"
+                  value={competitor.name}
+                  onChange={_updateCompetitor(competitor, "name")}
+                />
+              </TableCell>
+              <TableCell>
+                <BoatClassSelector
+                  className="min-w-40"
+                  value={competitor.boatClass}
+                  onChange={_updateCompetitor(competitor, "boatClass")}
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  className="min-w-16"
+                  value={competitor.sailNumber}
+                  onChange={_updateCompetitor(competitor, "sailNumber")}
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  isClearable
+                  className="min-w-32"
+                  value={competitor.crew}
+                  onChange={_updateCompetitor(competitor, "crew")}
+                />
+              </TableCell>
+              <TableCell>
+                <Button
+                  color="danger"
+                  onPress={() => dispatch(deleteCompetitor(competitor))}
+                >
+                  Delete
+                </Button>
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+      <div className="flex flex-row items-center">
+        <Button
+          className="flex-grow mx-2"
+          color="primary"
+          onPress={() => dispatch(addCompetitor({}))}
+        >
           Add
         </Button>
-      }
-    >
-      <TableHeader>
-        <TableColumn>Helm</TableColumn>
-        <TableColumn>Boat Class</TableColumn>
-        <TableColumn>Sail Number</TableColumn>
-        <TableColumn>Crew</TableColumn>
-        <TableColumn>Actions</TableColumn>
-      </TableHeader>
-      <TableBody items={competitors}>
-        {(competitor) => (
-          <TableRow key={competitor.id}>
-            <TableCell>
-              <Input
-                value={competitor.name}
-                onChange={_updateCompetitor(competitor, "name")}
-              />
-            </TableCell>
-            <TableCell>
-              <BoatClassSelector
-                value={competitor.boatClass}
-                onChange={_updateCompetitor(competitor, "boatClass")}
-              />
-            </TableCell>
-            <TableCell>
-              <Input
-                value={competitor.sailNumber}
-                onChange={_updateCompetitor(competitor, "sailNumber")}
-              />
-            </TableCell>
-            <TableCell>
-              <Input
-                isClearable
-                value={competitor.crew}
-                onChange={_updateCompetitor(competitor, "crew")}
-              />
-            </TableCell>
-            <TableCell>
-              <Button
-                color="danger"
-                onPress={() => dispatch(deleteCompetitor(competitor))}
-              >
-                Delete
-              </Button>
-            </TableCell>
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+        <Button
+          as={Link}
+          className="flex-grow mx-2"
+          color="secondary"
+          href="/race"
+        >
+          Start Race
+        </Button>
+      </div>
+    </>
   );
 }
 

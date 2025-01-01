@@ -28,9 +28,9 @@ const testCompetitors = [
 export const raceSlice = createSlice({
   name: "race",
   initialState: {
-      competitors: testCompetitors,
-      startTime: undefined,
-      //competitors: [],
+    competitors: testCompetitors,
+    startTime: undefined,
+    //competitors: [],
   },
   reducers: {
     addCompetitor: (state, action) => {
@@ -45,19 +45,25 @@ export const raceSlice = createSlice({
               competitor.crew
             ),
         )
-        .forEach((blankRow) => state.competitors.splice(state.competitors.indexOf(blankRow), 1));
+        .forEach((blankRow) =>
+          state.competitors.splice(state.competitors.indexOf(blankRow), 1),
+        );
 
       state.competitors.push({ ...action.payload, id: crypto.randomUUID() });
     },
     updateCompetitor: (state, action) => {
-      const index = state.competitors.findIndex((c) => c.id === action.payload.id);
+      const index = state.competitors.findIndex(
+        (c) => c.id === action.payload.id,
+      );
 
       if (index !== -1) {
         state.competitors[index] = action.payload;
       }
     },
     deleteCompetitor: (state, action) => {
-      const index = state.competitors.findIndex((c) => c.id === action.payload.id);
+      const index = state.competitors.findIndex(
+        (c) => c.id === action.payload.id,
+      );
 
       if (index !== -1) {
         state.competitors.splice(index, 1);
@@ -66,13 +72,18 @@ export const raceSlice = createSlice({
     startRaceTimer: (state, action) => {
       state.startTime = action.payload;
     },
-    resetRaceTimer: (state, action) => {
+    resetRaceTimer: (state, _) => {
       state.startTime = undefined;
     },
   },
 });
 
-export const { addCompetitor, updateCompetitor, deleteCompetitor, startRaceTimer, resetRaceTimer } =
-  raceSlice.actions;
+export const {
+  addCompetitor,
+  updateCompetitor,
+  deleteCompetitor,
+  startRaceTimer,
+  resetRaceTimer,
+} = raceSlice.actions;
 
 export default raceSlice.reducer;
