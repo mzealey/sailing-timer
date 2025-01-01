@@ -222,7 +222,7 @@ const FlagHelp = {
         />
       </h2>
       <div className="flags-container">
-        <img className="" src={UpArrow} />
+        <img src={UpArrow} />
         <img className="border-black border-2" src={ClassFlag} />
       </div>
     </div>
@@ -235,10 +235,10 @@ const FlagHelp = {
           timeRemaining={timeRemaining}
         />
       </h2>
-      <div className="flex flex-row items-center">
-        <img className="mr-1 w-60" src={UpArrow} />
+      <div className="flags-container">
+        <img src={UpArrow} />
         <img
-          className="mr-1 w-60 border-black border-2"
+          className="border-black border-2"
           src={PreparatoryFlag}
         />
       </div>
@@ -252,10 +252,10 @@ const FlagHelp = {
           timeRemaining={timeRemaining}
         />
       </h2>
-      <div className="flex flex-row items-center">
-        <img className="mr-1 w-60" src={DownArrow} />
+      <div className="flags-container">
+        <img src={DownArrow} />
         <img
-          className="mr-1 w-60 border-black border-2"
+          className="border-black border-2"
           src={PreparatoryFlag}
         />
       </div>
@@ -269,9 +269,9 @@ const FlagHelp = {
           timeRemaining={timeRemaining}
         />
       </h2>
-      <div className="flex flex-row items-center">
-        <img className="mr-1 w-60" src={DownArrow} />
-        <img className="mr-1 w-60 border-black border-2" src={ClassFlag} />
+      <div className="flags-container">
+        <img src={DownArrow} />
+        <img className="border-black border-2" src={ClassFlag} />
       </div>
     </div>
   ),
